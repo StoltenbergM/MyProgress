@@ -1,0 +1,50 @@
+html {
+    background-color: #4b514a;
+    font-family: Helvetica;
+}
+header {
+    font-family: Helvetica;
+    font-size: 40px;
+    background-color: #4b514a;
+    color: #b2d4b6;
+    padding: 5px 20px;
+}
+header h1 {
+    text-align: center;
+}
+
+nav ul li {
+    font-size: 20px;
+    background-color: #728370;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+nav ul li a {
+    color: #b2d4b6;
+}
+
+main {
+    font-size: 20px;
+    background-color: #cde7ca;
+    padding: 10px;
+    border-radius: 5px;
+}
+main h2 {text-align: center;}
+
+.progress-bar {
+    width: 95%;
+    background-color: #4b514a;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress {
+    background-color: #90b493;
+    height: 20px;
+}
+@media screen and (min-width: 768px) {
+    body {
+        font-size: 16px; /* Adjust font size for larger screens */
+    }
+}
