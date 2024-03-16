@@ -1,41 +1,83 @@
+* {
+  box-sizing: border-box;
+}
 html {
     background-color: #4b514a;
     font-family: Helvetica;
+    line-height: 1.4;
 }
+
 header {
     font-family: Helvetica;
     font-size: 40px;
     background-color: #4b514a;
     color: #b2d4b6;
-    padding: 5px 20px;
+    margin: 20px;
+    padding: 0px 0px;
 }
 header h1 {
     text-align: center;
+    padding: 0 0px;
 }
-
+/* Top menu */
+li {
+    list-style-type: none; /* Remove bullets */
+    position: relative;
+}
 nav ul li {
     font-size: 20px;
-    background-color: #728370;
-    padding: 10px;
-    border-radius: 5px;
+    background-color: #4b514a;
+    margin-right: 40px;
+    border-radius: 20px;
+    position: relative; /* Required for pseudo-element */
+    color: #90b493;
+    transition: color 0.3s; /* Smooth color transition */
 }
-
+nav ul li::before { /* pseudo-element */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0; /* Start with zero width */
+    height: 100%;
+    background-color: #709473; /* Background color */
+    transition: width 1s; /* Animation duration */
+    margin-right: 40px;
+    border-radius: 20px;
+}
 nav ul li a {
+    position: relative;
+    padding: 10px;
+    z-index: 1;
     color: #b2d4b6;
+    text-decoration: none; /* Remove underline */
 }
+nav ul li:hover::before {
+    width: 100%; /* Fill up the background on hover */
 
+/* Top menu done */
+}
 main {
+    float: center;
+    text-align: center;
     font-size: 20px;
     background-color: #cde7ca;
-    padding: 10px;
-    border-radius: 5px;
+    margin: 40px;
+    padding: 20px;
+    border-radius: 30px;
 }
 main h2 {text-align: center;}
 
+.alert-success {
+    color: #00aa00
+}
+.alert-error {
+    color: #dd0000
+}
 .progress-bar {
-    width: 95%;
+    width: 100%;
     background-color: #4b514a;
-    border-radius: 5px;
+    border-radius: 8px;
     overflow: hidden;
 }
 
@@ -43,8 +85,68 @@ main h2 {text-align: center;}
     background-color: #90b493;
     height: 20px;
 }
+/* Manage Goals */
+.goal-edit {
+    display: flex;
+    padding: 4px 2px;
+    justify-content: space-between;
+}
+.goal-edit-left {
+    display: flex;
+
+    align-items: center;
+}
+.goal-edit-right {
+    display: flex;
+    align-items: center;
+}
+/* Style the image */
+img {
+    width: 100%; /* Adjust the width as needed */
+    display: block; /* Ensures the image behaves as a block element */
+    height: auto; /* Maintain aspect ratio */
+
+}
+
+/* Create three unequal columns that floats next to each other */
+.column {
+    float: center;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Left and right column */
+.column.small {
+    float: center;
+    width: 15%;
+    text-align: center;
+}
+.column.medium {
+    width: 50%;
+    float: left;
+    text-align: left;
+}
+.column.big {
+    float: center;
+    width: 85%;
+    text-align: center;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 900px) {
+    .column.small, .column.medium, column.big {
+    width: 100%;
+    }
+
 @media screen and (min-width: 768px) {
     body {
-        font-size: 16px; /* Adjust font size for larger screens */
+        font-size: 24px; /* Adjust font size for larger screens */
     }
 }

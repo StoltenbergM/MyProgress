@@ -42,7 +42,7 @@ def home():
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('about'))
 
 '''Register Route - Implement User Registration'''
 
@@ -51,6 +51,13 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+
+        # Check if a user with the given username already exists
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            flash('Username already exists. Please choose a different username.', 'error')
+            return redirect(url_for('register'))
+
         new_user = User(username=username, password=password)
         db.session.add(new_user)
         db.session.commit()
@@ -73,7 +80,19 @@ def login():
             flash('Invalid username or password', 'error')
     return render_template('login.html')
 
+'''Logout Route'''
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))  # Redirect to the login page after logout
+
 '''Dashboard Route'''
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route('/dashboard')
 @login_required
@@ -81,7 +100,19 @@ def dashboard():
     goals = current_user.goals
     return render_template('dashboard.html', goals=goals)
 
-'''Create Goal Route'''
+@app.route('/profile')
+@login_required
+def profile():
+    goals = current_user.goals
+    return render_template('profile.html', goals=goals)
+
+'''Goal Routes'''
+
+@app.route('/manage_goals')
+@login_required
+def manage_goals():
+    goals = current_user.goals
+    return render_template('manage_goals.html', goals=goals)
 
 @app.route('/add_goal', methods=['POST'])
 @login_required
@@ -94,15 +125,29 @@ def add_goal():
         db.session.add(new_goal)
         db.session.commit()
         flash('Goal added successfully!', 'success')
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('manage_goals'))
 
-'''Logout Route'''
-
-@app.route('/logout')
+@app.route('/edit_goal/<int:goal_id>', methods=['GET', 'POST'])
 @login_required
-def logout():
-    logout_user()
-    return redirect(url_for('login'))
+def edit_goal(goal_id):
+    goal = Goal.query.get_or_404(goal_id)
+    if request.method == 'POST':
+        goal.name = request.form['name']
+        goal.target = int(request.form['target'])
+        goal.current = int(request.form['current'])
+        db.session.commit()
+        flash('Goal updated successfully!', 'success')
+        return redirect(url_for('manage_goals'))
+    return render_template('edit_goal.html', goal=goal)
+
+@app.route('/delete_goal/<int:goal_id>', methods=['POST'])
+@login_required
+def delete_goal(goal_id):
+    goal = Goal.query.get_or_404(goal_id)
+    db.session.delete(goal)
+    db.session.commit()
+    flash('Goal deleted successfully!', 'success')
+    return redirect(url_for('manage_goals'))
 
 '''Error 404 Route'''
 

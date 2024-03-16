@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+        <!-- Add your CSS stylesheets here -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+        <!-- Common header -->
+    <header>
+        <h1>My Progress</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                {% if current_user.is_authenticated %}
+                    <!-- Display user's name instead of Login if logged in -->
+                    <li><a href="/manage_goals">Manage Goals</a></li>
+                {% endif %}
+                <li><a href="/about">About</a></li>
+                {% if current_user.is_authenticated %}
+                    <!-- Display user's name instead of Login if logged in -->
+                    <li><a href="/profile">{{ current_user.username }}</a></li>
+                {% else %}
+                    <li><a href="/login">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <!-- Main content area -->
+    <main>
+        <h2>Do you want to <a href="{{ url_for('logout') }}">sign out?</a></h2>
+    </main>
+
+    <!-- Common footer -->
+    <footer>
+        <p>&copy; 2024 My Website. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

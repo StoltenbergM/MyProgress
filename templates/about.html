@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+        <!-- Add your CSS stylesheets here -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+        <!-- Common header -->
+    <header>
+        <h1>My Progress</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                {% if current_user.is_authenticated %}
+                    <!-- Display user's name instead of Login if logged in -->
+                    <li><a href="/manage_goals">Manage Goals</a></li>
+                {% endif %}
+                <li><a href="/about">About</a></li>
+                {% if current_user.is_authenticated %}
+                    <!-- Display user's name instead of Login if logged in -->
+                    <li><a href="/profile">{{ current_user.username }}</a></li>
+                {% else %}
+                    <li><a href="/login">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <!-- Main content area -->
+    <main>
+        <div class="column">Welcome to <b>Your Goal Tracker</b>!<br><br> Start tracking your goals and turn dreams
+            into reality. <br> Stay motivated, stay focused, and achieve your dreams with our intuitive goal
+            tracking platform.</div>
+        <div class="column"><img src="{{ url_for('static', filename='pictures/Girl.png') }}" alt="Boy"></div>
+        </div>
+        <form>
+            <div class="row">
+                <div class="column medium">
+                    <p style="text-align: center;">
+                        How It Works: <br> <br> </p>
+                    <b><i>1: Create Goals</i></b>: Set clear and achievable goals to work towards.<br>
+                    <b><i>2: Track Progress</i></b>: Monitor your progress and see how far you've come.<br>
+                    <b><i>3: Stay Motivated</i></b>: Get inspired by visualizing your progress and celebrating milestones.<br>
+                    <b><i>4: Achieve Success</i></b>: Stay committed and take action to achieve your goals.<br><br><br>
+
+                    Whether you're aiming to improve your fitness, learn a new skill, or advance in your career,
+                    our goal tracker is here to support you every step of the way... <i>Get started!</i>
+                </div>
+                <div class="column medium"><img src="{{ url_for('static', filename='pictures/trophy.png') }}" alt="Trophy"></div>
+            </div>
+        </form>
+        <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+    </main>
+
+    <!-- Common footer -->
+    <footer>
+        <p>&copy; 2024 My Website. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

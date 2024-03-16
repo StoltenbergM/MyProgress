@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Website{% endblock %}</title>
+    <!-- Add your CSS stylesheets here -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <!-- Common header -->
+    <header>
+        <h1>My Progress</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/manage_goals">Manage Goals</a></li>
+                <li><a href="/about">About</a></li>
+                {% if current_user.is_authenticated %}
+                    <!-- Display user's name instead of Login if logged in -->
+                    <li><a href="/profile">{{ current_user.username }}</a></li>
+                {% else %}
+                    <li><a href="/login">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <!-- Main content area -->
+    <main>
+        <h2>Your Goals</h2>
+        <ul>
+            {% for goal in goals %}
+            <label>
+                <div>{{ goal.name }}: {{ goal.current }}/{{ goal.target }}</div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: {{ goal.current / goal.target * 100 }}%"></div>
+                </div>
+                <div class="goal-edit">
+                    <div class="goal-edit-left">
+                        <button onclick="incrementProgress('{{ goal.id }}')" style="margin-right: 4px;">+</button>
+                        <button onclick="decrementProgress('{{ goal.id }}')" style="margin-right: 4px;">-</button>
+                        <input type="text" id="changevalue" name="changevalue" required>
+                    </div>
+                    <form action="{{ url_for('delete_goal', goal_id=goal.id) }}" method="post" class="goal-edit-right">
+                        <button class="delete-goal" type="submit">Delete</button>
+                    </form>
+                </div>
+            </label>
+            {% endfor %}
+        </ul>
+
+        <h3>Add New Goal</h3>
+        <form action="{{ url_for('add_goal') }}" method="post">
+            <label for="name">Goal Name:</label>
+            <input type="text" id="name" name="name" required><br>
+            <label for="target">Target:</label>
+            <input type="number" id="target" name="target" required><br>
+            <label for="current">Current:</label>
+            <input type="number" id="current" name="current" required><br>
+            <button type="submit">Add Goal</button>
+        </form>
+    </main>
+
+    <!-- Common footer -->
+    <footer>
+        <p>&copy; 2024 My Website. All rights reserved.</p>
+    </footer>
+
+    <!-- Add your JavaScript files here -->
+    <script src="script.js"></script>
+
+</body>
+</html>
