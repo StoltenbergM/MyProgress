@@ -6,6 +6,9 @@
     <title>{% block title %}My Website{% endblock %}</title>
     <!-- Add your CSS stylesheets here -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Common header -->
@@ -44,7 +47,11 @@
                 <li>
                     {{ goal.name }}: {{ goal.current }}/{{ goal.target }}
                     <div class="progress-bar">
+                        {% if goal.target > goal.current %}
                         <div class="progress" style="width: {{ goal.current / goal.target * 100 }}%"></div>
+                        {% else %}
+                        <div class="progress-win" ></div>
+                        {% endif %}
                     </div>
                 </li>
                 {% endfor %}

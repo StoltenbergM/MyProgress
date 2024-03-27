@@ -1,16 +1,16 @@
 * {
   box-sizing: border-box;
 }
-html {
+body {
+    min-height: 100vh;
     background-color: #4b514a;
-    font-family: Helvetica;
+    background: linear-gradient(to bottom, #4b514a, #b2d4b6);
+    font-family: "Varela Round", sans-serif;
     line-height: 1.4;
 }
 
 header {
-    font-family: Helvetica;
     font-size: 40px;
-    background-color: #4b514a;
     color: #b2d4b6;
     margin: 20px;
     padding: 0px 0px;
@@ -23,10 +23,10 @@ header h1 {
 li {
     list-style-type: none; /* Remove bullets */
     position: relative;
+    margin-left: 2px;
 }
 nav ul li {
-    font-size: 20px;
-    background-color: #4b514a;
+    font-size: 22px;
     margin-right: 40px;
     border-radius: 20px;
     position: relative; /* Required for pseudo-element */
@@ -42,7 +42,6 @@ nav ul li::before { /* pseudo-element */
     height: 100%;
     background-color: #709473; /* Background color */
     transition: width 1s; /* Animation duration */
-    margin-right: 40px;
     border-radius: 20px;
 }
 nav ul li a {
@@ -58,16 +57,23 @@ nav ul li:hover::before {
 /* Top menu done */
 }
 main {
+    border: 2px solid #000000; /* Outline */
+    list-style-type: none; /* Remove bullets */
     float: center;
     text-align: center;
     font-size: 20px;
-    background-color: #cde7ca;
     margin: 40px;
-    padding: 20px;
+    padding: 20px 20px;
     border-radius: 30px;
 }
 main h2 {text-align: center;}
-
+main ul {
+    padding: 5px 10px;
+    margin: 5px;
+}
+main ul li {
+    padding: 5px;
+}
 .alert-success {
     color: #00aa00
 }
@@ -77,6 +83,7 @@ main h2 {text-align: center;}
 .progress-bar {
     width: 100%;
     background-color: #4b514a;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Shadow effect, 1: horizontal offset, 2: vertical, 3: blur rad, 4: shadow color */
     border-radius: 8px;
     overflow: hidden;
 }
@@ -85,6 +92,13 @@ main h2 {text-align: center;}
     background-color: #90b493;
     height: 20px;
 }
+.progress-win {
+    background-color: #90b493;
+    height: 20px;
+    border: 4px solid #62d466;
+    border-radius: 8px;
+}
+
 /* Manage Goals */
 .goal-edit {
     display: flex;
@@ -93,13 +107,36 @@ main h2 {text-align: center;}
 }
 .goal-edit-left {
     display: flex;
-
     align-items: center;
 }
 .goal-edit-right {
     display: flex;
     align-items: center;
 }
+button {
+    min-width: 20px;
+    background-color: #4b514a;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Shadow effect, 1: horizontal offset, 2: vertical, 3: blur rad, 4: shadow color */
+    border: none;
+    color: #b2d4b6;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 2px 5px;
+}
+.add-goal {
+    font-size: 16px;
+    margin: 10px;
+    padding: 3px 10px;
+}
+input {
+    border: 1px solid #ccc; /* Border color */
+    background-color: #f0f0f0; /* Button background color */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Shadow effect, 1: horizontal offset, 2: vertical, 3: blur rad, 4: shadow color */
+    border-radius: 5px; /* Rounded corners */
+}
+
 /* Style the image */
 img {
     width: 100%; /* Adjust the width as needed */
@@ -107,7 +144,6 @@ img {
     height: auto; /* Maintain aspect ratio */
 
 }
-
 /* Create three unequal columns that floats next to each other */
 .column {
     float: center;
